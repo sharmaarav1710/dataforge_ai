@@ -1,3 +1,4 @@
+import json
 import uuid
 from pathlib import Path
 
@@ -57,11 +58,40 @@ def save_upload(file_bytes: bytes, filename: str) -> tuple[str, Path]:
 
     dest = upload_dir / filename
     dest.write_bytes(file_bytes)
+    (upload_dir / "meta.json").write_text(
+        json.dumps({"dataset_id": dataset_id, "filename": filename}),
+        encoding="utf-8",
+    )
     return dataset_id, dest
 
 
-def load_dataframe(dataset_id: str, filename: str) -> pd.DataFrame:
-    path = Path(settings.data_dir) / "uploads" / dataset_id / filename
+def resolve_filename(dataset_id: str, filename: str | None = None) -> str:
+    upload_dir = Path(settings.data_dir) / "uploads" / dataset_id
+    if not upload_dir.exists():
+        raise FileNotFoundError(f"Dataset not found: {dataset_id}")
+
+    if filename:
+        return filename
+
+    meta_path = upload_dir / "meta.json"
+    if meta_path.exists():
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        return str(meta["filename"])
+
+    data_files = [
+        path
+        for path in upload_dir.iterdir()
+        if path.is_file() and path.name != "meta.json"
+    ]
+    if len(data_files) == 1:
+        return data_files[0].name
+
+    raise ValueError("filename query parameter is required for this dataset")
+
+
+def load_dataframe(dataset_id: str, filename: str | None = None) -> pd.DataFrame:
+    resolved = resolve_filename(dataset_id, filename)
+    path = Path(settings.data_dir) / "uploads" / dataset_id / resolved
     if not path.exists():
         raise FileNotFoundError(f"Dataset not found: {dataset_id}")
 

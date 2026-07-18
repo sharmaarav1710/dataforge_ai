@@ -1,7 +1,14 @@
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, HTTPException, Query, UploadFile
 
 from app.schemas.dataset import DatasetUploadResponse
-from app.services.dataset_service import load_dataframe, profile_dataframe, save_upload
+from app.schemas.issues import AnalysisResult
+from app.services.analysis_service import analyze_dataframe
+from app.services.dataset_service import (
+    load_dataframe,
+    profile_dataframe,
+    resolve_filename,
+    save_upload,
+)
 
 router = APIRouter(prefix="/datasets", tags=["datasets"])
 
@@ -45,11 +52,30 @@ async def upload_dataset(file: UploadFile = File(...)) -> DatasetUploadResponse:
 
 
 @router.get("/{dataset_id}/profile")
-async def get_dataset_profile(dataset_id: str, filename: str) -> dict:
+async def get_dataset_profile(
+    dataset_id: str,
+    filename: str | None = Query(default=None),
+) -> dict:
     try:
-        df = load_dataframe(dataset_id, filename)
-        profile = profile_dataframe(df, dataset_id, filename)
+        resolved = resolve_filename(dataset_id, filename)
+        df = load_dataframe(dataset_id, resolved)
+        profile = profile_dataframe(df, dataset_id, resolved)
         return profile.model_dump()
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/{dataset_id}/analyze", response_model=AnalysisResult)
+async def analyze_dataset(
+    dataset_id: str,
+    filename: str | None = Query(default=None),
+) -> AnalysisResult:
+    try:
+        resolved = resolve_filename(dataset_id, filename)
+        df = load_dataframe(dataset_id, resolved)
+        return analyze_dataframe(df, dataset_id, resolved)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     except ValueError as exc:

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { analyzeDataset, fetchHealth, uploadDataset } from "../api/client";
+import { HealthDashboard } from "../components/HealthDashboard";
 import type { DatasetProfile } from "../types/dataset";
-import { fetchHealth, uploadDataset } from "../api/client";
+import type { AnalysisResult } from "../types/issues";
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
@@ -16,6 +18,7 @@ export default function App() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<DatasetProfile | null>(null);
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
 
   useEffect(() => {
     fetchHealth()
@@ -29,12 +32,17 @@ export default function App() {
 
     setUploading(true);
     setError(null);
+    setAnalysis(null);
 
     try {
       const result = await uploadDataset(file);
       setProfile(result.profile);
+
+      const analysisResult = await analyzeDataset(result.dataset_id, result.filename);
+      setAnalysis(analysisResult);
     } catch (err) {
       setProfile(null);
+      setAnalysis(null);
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploading(false);
@@ -122,11 +130,16 @@ export default function App() {
                 </tbody>
               </table>
             </div>
-
-            <p className="text-sm text-slate-500">
-              Next up: automated issue detection and AI-powered repair recommendations.
-            </p>
           </section>
+        )}
+
+        {analysis && (
+          <HealthDashboard
+            healthScore={analysis.health_score}
+            summary={analysis.summary}
+            issuesBySeverity={analysis.issues_by_severity}
+            issues={analysis.issues}
+          />
         )}
       </main>
     </div>

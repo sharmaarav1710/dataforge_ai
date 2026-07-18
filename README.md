@@ -31,11 +31,10 @@ API docs: `http://localhost:8000/docs`
 | Phase | Goal |
 |-------|------|
 | **0** | Repo, devcontainer, health checks ✅ |
-| **1** | Upload CSV + profile + health dashboard |
-| **2** | Issue detectors (missing, duplicates, outliers, imbalance, leakage) |
-| **3** | AI explanations + repair recommendations (OpenAI) |
-| **4** | Apply repairs + version history |
-| **5** | Export dataset, pipeline, quality report |
+| **1** | Upload CSV + profile + issue detection ✅ |
+| **2** | AI explanations + repair recommendations (OpenAI) |
+| **3** | Apply repairs + version history |
+| **4** | Export dataset, pipeline, quality report |
 
 ## Local development (without Codespaces)
 
