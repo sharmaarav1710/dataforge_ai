@@ -1,0 +1,6 @@
+name,age,city,label
+Alice,25,NYC,A
+Bob,30,LA,B
+Charlie,,Chicago,A
+Diana,35,NYC,B
+Eve,28,LA,A
