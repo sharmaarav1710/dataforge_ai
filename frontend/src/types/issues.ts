@@ -8,6 +8,17 @@ export type IssueType =
   | "class_imbalance"
   | "data_leakage";
 
+export type RepairEffort = "low" | "medium" | "high";
+
+export interface RepairOption {
+  id: string;
+  title: string;
+  description: string;
+  effort: RepairEffort;
+  expected_impact: string;
+  recommended: boolean;
+}
+
 export interface DetectedIssue {
   id: string;
   type: IssueType;
@@ -18,6 +29,9 @@ export interface DetectedIssue {
   affected_row_count: number;
   metrics: Record<string, unknown>;
   recommendation: string;
+  ai_explanation?: string | null;
+  model_impact?: string | null;
+  repair_options?: RepairOption[];
 }
 
 export interface AnalysisResult {
@@ -28,6 +42,8 @@ export interface AnalysisResult {
   issues_by_severity: Record<IssueSeverity, number>;
   issues: DetectedIssue[];
   summary: string;
+  ai_enabled?: boolean;
+  ai_summary?: string | null;
 }
 
 export const ISSUE_TYPE_LABELS: Record<IssueType, string> = {
@@ -59,4 +75,10 @@ export const SEVERITY_STYLES: Record<
     badge: "bg-rose-900/50 text-rose-300",
     border: "border-rose-800/60",
   },
+};
+
+export const EFFORT_STYLES: Record<RepairEffort, string> = {
+  low: "bg-emerald-900/40 text-emerald-300",
+  medium: "bg-amber-900/40 text-amber-300",
+  high: "bg-rose-900/40 text-rose-300",
 };

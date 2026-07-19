@@ -3,6 +3,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from app.schemas.ai import RepairOption
+
 
 class IssueSeverity(str, Enum):
     LOW = "low"
@@ -30,6 +32,9 @@ class DetectedIssue(BaseModel):
     affected_row_count: int = 0
     metrics: dict[str, Any] = Field(default_factory=dict)
     recommendation: str
+    ai_explanation: str | None = None
+    model_impact: str | None = None
+    repair_options: list[RepairOption] = Field(default_factory=list)
 
 
 class AnalysisResult(BaseModel):
@@ -40,3 +45,5 @@ class AnalysisResult(BaseModel):
     issues_by_severity: dict[str, int]
     issues: list[DetectedIssue]
     summary: str
+    ai_enabled: bool = False
+    ai_summary: str | None = None

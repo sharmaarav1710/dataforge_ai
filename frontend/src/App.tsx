@@ -76,7 +76,7 @@ export default function App() {
           <h2 className="text-lg font-semibold">Upload a tabular dataset</h2>
           <p className="mt-2 text-sm text-slate-400">CSV or Parquet · up to 100 MB</p>
           <label className="mt-6 inline-flex cursor-pointer items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium hover:bg-indigo-500">
-            {uploading ? "Analyzing…" : "Choose file"}
+            {uploading ? "Analyzing with AI…" : "Choose file"}
             <input
               type="file"
               accept=".csv,.parquet,.pq"
@@ -139,6 +139,8 @@ export default function App() {
             summary={analysis.summary}
             issuesBySeverity={analysis.issues_by_severity}
             issues={analysis.issues}
+            aiEnabled={analysis.ai_enabled}
+            aiSummary={analysis.ai_summary}
           />
         )}
       </main>

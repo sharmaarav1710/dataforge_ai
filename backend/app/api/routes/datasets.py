@@ -2,6 +2,7 @@ from fastapi import APIRouter, File, HTTPException, Query, UploadFile
 
 from app.schemas.dataset import DatasetUploadResponse
 from app.schemas.issues import AnalysisResult
+from app.services.ai_service import enrich_analysis_with_ai
 from app.services.analysis_service import analyze_dataframe
 from app.services.dataset_service import (
     load_dataframe,
@@ -71,11 +72,18 @@ async def get_dataset_profile(
 async def analyze_dataset(
     dataset_id: str,
     filename: str | None = Query(default=None),
+    include_ai: bool = Query(default=True),
 ) -> AnalysisResult:
     try:
         resolved = resolve_filename(dataset_id, filename)
         df = load_dataframe(dataset_id, resolved)
-        return analyze_dataframe(df, dataset_id, resolved)
+        result = analyze_dataframe(df, dataset_id, resolved)
+
+        if include_ai:
+            profile = profile_dataframe(df, dataset_id, resolved)
+            result = enrich_analysis_with_ai(result, profile)
+
+        return result
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     except ValueError as exc:

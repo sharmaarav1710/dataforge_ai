@@ -1,5 +1,9 @@
-import type { DetectedIssue, IssueSeverity } from "../types/issues";
-import { ISSUE_TYPE_LABELS, SEVERITY_STYLES } from "../types/issues";
+import type { DetectedIssue, IssueSeverity, RepairOption } from "../types/issues";
+import {
+  EFFORT_STYLES,
+  ISSUE_TYPE_LABELS,
+  SEVERITY_STYLES,
+} from "../types/issues";
 
 function healthScoreColor(score: number): string {
   if (score >= 85) return "text-emerald-400";
@@ -13,8 +17,47 @@ function healthScoreRing(score: number): string {
   return "border-rose-500/40 bg-rose-950/30";
 }
 
+function RepairOptionCard({ option, rank }: { option: RepairOption; rank: number }) {
+  return (
+    <div
+      className={`rounded-lg border p-4 ${
+        option.recommended
+          ? "border-indigo-500/50 bg-indigo-950/30"
+          : "border-slate-800 bg-slate-950/50"
+      }`}
+    >
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="flex items-start gap-2">
+          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-800 text-xs font-semibold text-slate-300">
+            {rank}
+          </span>
+          <div>
+            <p className="font-medium text-white">{option.title}</p>
+            {option.recommended && (
+              <span className="mt-1 inline-block rounded-full bg-indigo-600/80 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-indigo-100">
+                Recommended
+              </span>
+            )}
+          </div>
+        </div>
+        <span
+          className={`rounded-full px-2 py-0.5 text-[10px] font-medium capitalize ${EFFORT_STYLES[option.effort]}`}
+        >
+          {option.effort} effort
+        </span>
+      </div>
+      <p className="mt-3 text-sm text-slate-300">{option.description}</p>
+      <p className="mt-2 text-xs text-slate-500">
+        <span className="font-medium text-slate-400">Expected impact: </span>
+        {option.expected_impact}
+      </p>
+    </div>
+  );
+}
+
 function IssueCard({ issue }: { issue: DetectedIssue }) {
   const styles = SEVERITY_STYLES[issue.severity];
+  const repairOptions = issue.repair_options ?? [];
 
   return (
     <article className={`rounded-xl border ${styles.border} bg-slate-900/50 p-5`}>
@@ -45,10 +88,37 @@ function IssueCard({ issue }: { issue: DetectedIssue }) {
         )}
       </div>
 
-      <p className="mt-4 rounded-lg bg-slate-950/70 px-3 py-2 text-sm text-slate-400">
-        <span className="font-medium text-slate-300">Recommendation: </span>
-        {issue.recommendation}
-      </p>
+      {issue.ai_explanation && (
+        <div className="mt-4 rounded-lg border border-indigo-800/40 bg-indigo-950/20 px-4 py-3">
+          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-300">
+            AI explanation
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-indigo-100/90">{issue.ai_explanation}</p>
+        </div>
+      )}
+
+      {issue.model_impact && (
+        <div className="mt-3 rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Model impact
+          </p>
+          <p className="mt-2 text-sm text-slate-300">{issue.model_impact}</p>
+        </div>
+      )}
+
+      {repairOptions.length > 0 ? (
+        <div className="mt-4 space-y-3">
+          <p className="text-sm font-medium text-slate-300">Repair options</p>
+          {repairOptions.map((option, index) => (
+            <RepairOptionCard key={option.id} option={option} rank={index + 1} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-4 rounded-lg bg-slate-950/70 px-3 py-2 text-sm text-slate-400">
+          <span className="font-medium text-slate-300">Recommendation: </span>
+          {issue.recommendation}
+        </p>
+      )}
     </article>
   );
 }
@@ -58,11 +128,15 @@ export function HealthDashboard({
   summary,
   issuesBySeverity,
   issues,
+  aiEnabled,
+  aiSummary,
 }: {
   healthScore: number;
   summary: string;
   issuesBySeverity: Record<IssueSeverity, number>;
   issues: DetectedIssue[];
+  aiEnabled?: boolean;
+  aiSummary?: string | null;
 }) {
   return (
     <section className="mt-8 space-y-6">
@@ -81,6 +155,30 @@ export function HealthDashboard({
           <span className="text-xs text-slate-400">/ 100</span>
         </div>
       </div>
+
+      {aiSummary && (
+        <div
+          className={`rounded-xl border px-5 py-4 ${
+            aiEnabled
+              ? "border-indigo-700/50 bg-indigo-950/25"
+              : "border-slate-700 bg-slate-900/50"
+          }`}
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm font-semibold text-white">AI insights</p>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                aiEnabled
+                  ? "bg-indigo-600/80 text-indigo-100"
+                  : "bg-slate-700 text-slate-300"
+              }`}
+            >
+              {aiEnabled ? "OpenAI" : "Rule-based fallback"}
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">{aiSummary}</p>
+        </div>
+      )}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {(["critical", "high", "medium", "low"] as IssueSeverity[]).map((severity) => (
