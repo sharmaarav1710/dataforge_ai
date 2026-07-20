@@ -1,10 +1,8 @@
-import { 
-  Dataset, 
-  HealthStatus, 
-  DatasetUploadResponse, 
-  AnalysisResult 
-} from './types'; 
+import type { DatasetUploadResponse } from "../types/dataset";
+import type { AnalysisResult } from "../types/issues";
+import type { Dataset, HealthStatus } from "../types/dataset";
 
+// Automatically uses VITE_API_BASE_URL if provided, else production Render backend, else localhost
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 
   (import.meta.env.PROD ? "https://dataforge-ai.onrender.com" : "http://localhost:8000");
 
