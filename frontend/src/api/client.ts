@@ -1,8 +1,11 @@
 import type { DatasetUploadResponse } from "../types/dataset";
 import type { AnalysisResult } from "../types/issues";
-import type { Dataset, HealthStatus } from "../types/dataset";
 
-// Automatically uses VITE_API_BASE_URL if provided, else production Render backend, else localhost
+export interface HealthStatus {
+  status: string;
+  [key: string]: unknown;
+}
+
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 
   (import.meta.env.PROD ? "https://dataforge-ai.onrender.com" : "http://localhost:8000");
 
@@ -44,3 +47,5 @@ export async function analyzeDataset(
 
   return res.json();
 }
+
+
