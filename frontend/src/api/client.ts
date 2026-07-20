@@ -1,13 +1,15 @@
-import type { DatasetUploadResponse, HealthResponse } from "../types/dataset";
-import type { AnalysisResult } from "../types/issues";
+import { 
+  Dataset, 
+  HealthStatus, 
+  DatasetUploadResponse, 
+  AnalysisResult 
+} from './types'; 
 
-export const API_BASE_URL = import.meta.env.PROD 
-  ? "https://dataforgechecker.onrender.com" 
-  : "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.PROD ? "https://dataforge-ai.onrender.com" : "http://localhost:8000");
 
-// Example health check request:
-export const checkHealth = async () => {
-  const response = await fetch(`${API_BASE_URL}/datasets/health`);
+export const checkHealth = async (): Promise<HealthStatus> => {
+  const response = await fetch(`${API_BASE}/datasets/health`);
   return response.json();
 };
 
