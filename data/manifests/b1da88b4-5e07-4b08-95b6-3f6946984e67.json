@@ -1,0 +1,21 @@
+{
+    "dataset_id": "b1da88b4-5e07-4b08-95b6-3f6946984e67",
+    "current_version": "v2",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/b1da88b4-5e07-4b08-95b6-3f6946984e67_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        },
+        "v1": {
+            "path": "data/uploads/b1da88b4-5e07-4b08-95b6-3f6946984e67_v1.csv",
+            "parent": "v0",
+            "changes": "Imputed missing properties inside target attribute column: 'age'"
+        },
+        "v2": {
+            "path": "data/uploads/b1da88b4-5e07-4b08-95b6-3f6946984e67_v2.csv",
+            "parent": "v1",
+            "changes": "Imputed missing properties inside target attribute column: 'age'"
+        }
+    }
+}

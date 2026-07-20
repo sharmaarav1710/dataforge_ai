@@ -1,0 +1,21 @@
+{
+    "dataset_id": "e1b1cb97-85d7-4438-b416-75ff09d13e3a",
+    "current_version": "v2",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/e1b1cb97-85d7-4438-b416-75ff09d13e3a_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        },
+        "v1": {
+            "path": "data/uploads/e1b1cb97-85d7-4438-b416-75ff09d13e3a_v1.csv",
+            "parent": "v0",
+            "changes": "Automated engineering fix executed for type: missing_values"
+        },
+        "v2": {
+            "path": "data/uploads/e1b1cb97-85d7-4438-b416-75ff09d13e3a_v2.csv",
+            "parent": "v1",
+            "changes": "Automated engineering fix executed for type: missing_values"
+        }
+    }
+}

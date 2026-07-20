@@ -1,0 +1,16 @@
+{
+    "dataset_id": "eb6265ce-461d-4b5d-a834-0c60e45bd3f4",
+    "current_version": "v1",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/eb6265ce-461d-4b5d-a834-0c60e45bd3f4_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        },
+        "v1": {
+            "path": "data/uploads/eb6265ce-461d-4b5d-a834-0c60e45bd3f4_v1.csv",
+            "parent": "v0",
+            "changes": "Imputed missing properties inside target attribute column: 'age'"
+        }
+    }
+}

@@ -30,3 +30,28 @@ export interface HealthResponse {
   version: string;
   timestamp: string;
 }
+
+export interface PipelineStep{
+  step_id:string;
+  issue_type: string;
+  target_column?: string;
+  action_taken: string;
+  timestamp: string;
+  affected_rows_count: number;
+  parameters_used: Record<string, any>;
+}
+
+export interface DatasetVersionNode{
+  version_id: number;
+  parent_version_id: number | null;
+  file_path: string;
+  created_at: string;
+  applied_step: PipelineStep | null;
+}
+
+export interface VersionManifest {
+  dataset_id: string;
+  current_version: number;
+  versions: DatasetVersionNode[];
+}
+

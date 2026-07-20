@@ -1,0 +1,11 @@
+{
+    "dataset_id": "4d1a460b-87d8-4771-bac6-d2cb6b7584b5",
+    "current_version": "v0",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/4d1a460b-87d8-4771-bac6-d2cb6b7584b5_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        }
+    }
+}

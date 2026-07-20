@@ -1,0 +1,11 @@
+{
+    "dataset_id": "fbbc2366-d3e7-4c6e-8623-9119068a6f3f",
+    "current_version": "v0",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/fbbc2366-d3e7-4c6e-8623-9119068a6f3f_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        }
+    }
+}

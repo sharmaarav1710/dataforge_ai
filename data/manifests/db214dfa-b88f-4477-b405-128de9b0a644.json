@@ -1,0 +1,16 @@
+{
+    "dataset_id": "db214dfa-b88f-4477-b405-128de9b0a644",
+    "current_version": "v1",
+    "versions": {
+        "v0": {
+            "path": "data/uploads/db214dfa-b88f-4477-b405-128de9b0a644_sample.csv",
+            "parent": null,
+            "changes": "Initial dataset upload verification snapshot."
+        },
+        "v1": {
+            "path": "data/uploads/db214dfa-b88f-4477-b405-128de9b0a644_v1.csv",
+            "parent": "v0",
+            "changes": "Imputed missing properties inside target attribute column: 'age'"
+        }
+    }
+}
