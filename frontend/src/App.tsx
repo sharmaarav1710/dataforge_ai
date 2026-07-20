@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { datasetApi } from "./api/dataset";
 import { HealthDashboard } from "./components/HealthDashboard";
 import { DataGrid } from "./components/DataGrid";
-import type { DatasetProfile, VersionManifest, Dataset } from "./types/dataset";
-import type { AnalysisResult, Issue } from "./types/issues";
+import type { DatasetProfile, VersionManifest } from "./types/dataset";
+import type { AnalysisResult } from "./types/issues";
 import { AIQueryPanel } from "./components/AIQueryPanel";
   
 
