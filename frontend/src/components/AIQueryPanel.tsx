@@ -31,7 +31,7 @@ export const AIQueryPanel: React.FC<AIQueryPanelProps> = ({ datasetId, currentVe
       const res = await datasetApi.queryDatasetWithAI(datasetId, userMsg, currentVersionId);
       setMessages((prev) => [...prev, { sender: 'ai', text: res.answer || 'Query processed successfully.' }]);
     } catch (err) {
-      setMessages((prev) => [...prev, { sender: 'ai', text: err instanceof Error ? err.detail || err.message : 'Failed to process AI query.' }]);
+      setMessages((prev) => [...prev, { sender: 'ai', text: err instanceof Error ? (err as any).detail || err.message : 'Failed to process AI query.' }]);
     } finally {
       setLoading(false);
     }
