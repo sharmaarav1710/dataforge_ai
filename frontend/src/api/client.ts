@@ -5,10 +5,7 @@ export interface HealthStatus {
   status: string;
   [key: string]: unknown;
 }
-
-const API_BASE = 
-  import.meta.env.VITE_API_BASE_URL || 
-  "https://dataforge-ai.onrender.com"; // Direct hardcoded fallback
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://dataforgecheck.onrender.com";
 
 export const checkHealth = async (): Promise<HealthStatus> => {
   const response = await fetch(`${API_BASE}/datasets/health`);
@@ -19,7 +16,7 @@ export async function uploadDataset(file: File): Promise<DatasetUploadResponse> 
   const form = new FormData();
   form.append("file", file);
 
-  const res = await fetch(`${API_BASE}/api/v1/datasets/upload`, {
+  const res = await fetch(`${API_BASE+}/api/v1/datasets/upload`, {
     method: "POST",
     body: form,
   });
