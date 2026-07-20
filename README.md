@@ -1,52 +1,40 @@
-# DataForge AI
+DataForge AI is an AI-powered Dataset Engineering IDE that helps machine learning practitioners automatically inspect, clean, repair, and improve datasets before model training.
 
-AI-powered Dataset Engineering IDE for inspecting, cleaning, and improving tabular ML datasets.
+Instead of acting as a simple preprocessing tool, DataForge AI serves as an intelligent assistant that understands the dataset, identifies potential quality issues, recommends evidence-based fixes, and allows users to interactively apply improvements while maintaining a complete history of every change.
 
-## Stack
+Users upload a dataset (initially focusing on either image datasets or tabular datasets), and the platform performs a comprehensive analysis that includes detecting duplicates, mislabeled samples, missing values, class imbalance, data leakage, outliers, and other quality problems. Rather than only reporting these issues, the system explains why they matter, estimates their impact on downstream model performance, and recommends the most appropriate solutions.
 
-- **Backend:** Python 3.12, FastAPI, pandas, scikit-learn
-- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS
-- **AI:** OpenAI API for explanations and repair recommendations
-- **Dev:** GitHub Codespaces (`.devcontainer/`)
+Users can review each suggested modification, selectively apply repairs, compare different dataset versions, and export both the cleaned dataset and a reproducible preprocessing pipeline for future use.
 
-## Quick start (Codespaces)
 
-1. Push this repo to GitHub.
-2. Open **Code → Codespaces → Create codespace on main**.
-3. After the post-create script finishes, add your API key to `.env`:
-   ```bash
-   OPENAI_API_KEY=sk-...
-   ```
-4. In two terminals:
-   ```bash
-   make backend   # http://localhost:8000
-   make frontend  # http://localhost:5173
-   ```
-5. Open the forwarded **Frontend** port in the browser.
+Core Features
 
-API docs: `http://localhost:8000/docs`
+Upload and analyze machine learning datasets.
+Automatically detect data quality issues such as:
+Duplicate and near-duplicate samples
+Missing values
+Outliers
+Class imbalance
+Data leakage
+Suspicious or mislabeled samples
+AI-powered explanations and repair recommendations.
+One-click or selective dataset cleaning.
+Interactive Dataset Health Dashboard with quality metrics.
+Dataset version history (similar to Git) to track every modification.
+Estimated impact of each cleaning step on model quality.
+Export the cleaned dataset, preprocessing pipeline, and quality report.
 
-## Project phases
+Frontend:** React, TypeScript, Tailwind CSS, Vite
+Backend:** Python, FastAPI (supporting CSV, Excel, and Parquet data formats)
 
-| Phase | Goal |
-|-------|------|
-| **0** | Repo, devcontainer, health checks ✅ |
-| **1** | Upload CSV + profile + issue detection ✅ |
-| **2** | AI explanations + repair recommendations (OpenAI) ✅ |
-| **3** | Apply repairs + version history |
-| **4** | Export dataset, pipeline, quality report |
+1. Prerequisites
+Make sure you have **Node.js** and **Python** installed in your environment (or run it seamlessly inside **GitHub Codespaces**).
 
-## Local development (without Codespaces)
+2. Installation & Running
 
-Requires Python 3.12+ and Node 20+.
+* **Backend Setup:**
+  ```bash
+  pip install -r requirements.txt
+  uvicorn main:app --reload
 
-```bash
-cp .env.example .env
-make install
-make backend   # terminal 1
-make frontend  # terminal 2
-```
-
-## License
-
-MIT
+  
