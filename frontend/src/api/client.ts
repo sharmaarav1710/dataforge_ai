@@ -6,8 +6,9 @@ export interface HealthStatus {
   [key: string]: unknown;
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 
-  (import.meta.env.PROD ? "https://dataforge-ai.onrender.com" : "http://localhost:8000");
+const API_BASE = 
+  import.meta.env.VITE_API_BASE_URL || 
+  "https://dataforge-ai.onrender.com"; // Direct hardcoded fallback
 
 export const checkHealth = async (): Promise<HealthStatus> => {
   const response = await fetch(`${API_BASE}/datasets/health`);
