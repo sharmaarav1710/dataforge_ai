@@ -37,4 +37,19 @@ Make sure you have **Node.js** and **Python** installed in your environment (or 
   pip install -r requirements.txt
   uvicorn main:app --reload
 
-  
+## Project Gallery & Screenshots
+
+### 1. Overview
+![DataForge AI 1](./Dataforgeai%201.png)
+
+### 2. Studio Interface
+![DataForge AI 2](./Dataforgeai2.png)
+
+### 3. Health Diagnostics
+![DataForge AI 3](./Dataforgeai%203.png)
+
+### 4. Pipeline & Version Control
+![DataForge AI 4](./Dataforgeai%204.png)
+
+### 5. AI Copilot Integration
+![DataForge AI 5](./Dataforgeai%205.png)
