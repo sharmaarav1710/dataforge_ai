@@ -1,7 +1,19 @@
 from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://sharmaarav1710.github.io",  # Your GitHub Pages domain
+        "http://localhost:5173",             # Local frontend dev server
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 from app.api.routes.datasets import router as datasets_router
 from app.core.config import settings

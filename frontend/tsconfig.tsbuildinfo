@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/api/client.ts","./src/api/dataset.ts","./src/components/AIQueryPanel.tsx","./src/components/DataGrid.tsx","./src/components/HealthDashboard.tsx","./src/components/VersionTimeline.tsx","./src/types/dataset.ts","./src/types/issues.ts"],"version":"5.6.3"}
