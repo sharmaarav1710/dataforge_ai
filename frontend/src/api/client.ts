@@ -6,7 +6,7 @@ export interface HealthStatus {
   [key: string]: unknown;
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://dataforgecheck.onrender.com";
+const API_BASE = "https://dataforgecheck.onrender.com";
 
 export const checkHealth = async (): Promise<HealthStatus> => {
   const response = await fetch(`${API_BASE}/api/v1/datasets/health`);
