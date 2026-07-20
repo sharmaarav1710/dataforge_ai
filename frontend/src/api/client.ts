@@ -1,13 +1,15 @@
 import type { DatasetUploadResponse, HealthResponse } from "../types/dataset";
 import type { AnalysisResult } from "../types/issues";
 
-const API_BASE = "";
+export const API_BASE_URL = import.meta.env.PROD 
+  ? "https://dataforgechecker.onrender.com" 
+  : "http://localhost:8000";
 
-export async function fetchHealth(): Promise<HealthResponse> {
-  const res = await fetch(`${API_BASE}/health`);
-  if (!res.ok) throw new Error("Backend unreachable");
-  return res.json();
-}
+// Example health check request:
+export const checkHealth = async () => {
+  const response = await fetch(`${API_BASE_URL}/datasets/health`);
+  return response.json();
+};
 
 export async function uploadDataset(file: File): Promise<DatasetUploadResponse> {
   const form = new FormData();
