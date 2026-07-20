@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Node
+node_modules/
+dist/
+.vite/
+*.log
+
+# Data & artifacts (never commit user datasets)
+data/uploads/
+data/versions/
+data/exports/
+*.csv
+*.parquet
+!backend/tests/fixtures/*.csv
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.devcontainer/
+
+# OS
+.DS_Store
+Thumbs.db
