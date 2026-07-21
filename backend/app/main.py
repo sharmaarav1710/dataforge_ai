@@ -32,7 +32,9 @@ app.add_middleware(
 
 app.include_router(datasets_router, prefix="/api/v1")
 
-
 @app.get("/health", response_model=HealthResponse)
 async def health():
-    return HealthResponse()
+    return {
+        "status": "ok",
+        "cors": settings.cors_origin_list
+    }
