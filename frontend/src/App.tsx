@@ -28,12 +28,13 @@ export default function App() {
   const [rows, setRows] = useState<Record<string, any>[]>([]);
   const [activeTab, setActiveTab] = useState<"workspace" | "health">("workspace");
 
-  useEffect(() => {
-    fetch("/datasets/health")
-      .then((res) => setBackendOk(res.ok))
-      .catch(() => setBackendOk(false));
-  }, []);
+  const API_BASE = "https://dataforgecheck.onrender.com";
 
+  useEffect(() => {
+      fetch(`${API_BASE}/health`)
+          .then((res) => setBackendOk(res.ok))
+          .catch(() => setBackendOk(false));
+  }, []);
   useEffect(() => {
     if (!profile?.dataset_id || currentVersion === "v0") return;
 
