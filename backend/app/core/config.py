@@ -1,5 +1,5 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -14,21 +14,20 @@ class Settings(BaseSettings):
     backend_host: str = "0.0.0.0"
     backend_port: int = 8000
 
-    # Include localhost and your deployed frontend
     cors_origins: str = (
-        "http://localhost:5173,"
-        "http://127.0.0.1:5173,"
-    )
+    "http://localhost:5173,"
+    "http://127.0.0.1:5173"
+)
 
     data_dir: str = "./data"
 
     @property
-    def cors_origin_list(self) -> list[str]:
+    def cors_origin_list(self):
         return [
             origin.strip()
             for origin in self.cors_origins.split(",")
             if origin.strip()
         ]
 
-
 settings = Settings()
+
