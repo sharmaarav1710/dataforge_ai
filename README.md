@@ -1,29 +1,16 @@
-DataForge AI is a tool that helps people who work with machine learning. It looks at the data finds problems and suggests ways to make it better before using it to train a model.
+DataForge AI is an application that enables individuals engaged in machine learning to find possible issues within data and offers recommendations on improving it prior to the training process.
 
-DataForge AI is not a simple tool that fixes data. It is like a helper that understands the data and finds issues that could cause problems. It tells users what is wrong why it is a problem and how to fix it. Users can then decide what changes to make and keep track of everything they do.
+DataForge AI is not just an automated tool that fixes possible errors in the data set. This application is more like a consultant which is aware of issues in data and provides a report of those, explaining how these problems may affect a model. Users are provided with such information and have an opportunity to choose how to deal with possible mistakes and document their decisions.
 
-When users upload their data to DataForge AI the tool looks closely at it. It checks for things, like information wrong labels, missing data and other issues that can cause problems. DataForge AI does not just point out these issues it also explains why they are a problem and how they can affect the model. It even suggests the way to fix them.
+Upon the upload of the data, the application examines it and finds any potential problems, for instance, wrong information, incorrect labeling, missing data and others. DataForge AI not only discovers these problems but also explains why these problems should be solved and how they may impact a model. The tool also gives suggestions about how to solve them.
 
-Users can look at each suggested change. Decide what to do. They can make some changes compare versions of the data and then export the cleaned up data and the steps they took to get it that way. This way they can use the steps again in the future. DataForge AI works with kinds of data like pictures or tables.
+Application of Artificial Intelligence in this project
 
-How Artificial Intelligence is used in this project:
+In this project, Artificial Intelligence is applied to assess the uploaded data. Artificial Intelligence analyses this data to identify potential issues which can be difficult to spot. Such issues as misclassification, duplication, and imbalance within this data set are being identified.
 
-The project uses Artificial Intelligence to look at the data that people upload. Artificial Intelligence checks this data to find problems that are not easy to see. These problems include when data gets mixed up when things are labeled wrong when there are duplicates that're hard to find and when some things are not balanced.
-
-Artificial Intelligence also helps explain things and gives ideas for what to do. It does not just point out mistakes. Artificial Intelligence uses the data to explain why these mistakes are a deal and suggests ways to fix them that are based on evidence.
-
-Before anyone makes any changes Artificial Intelligence tries to figure out what will happen if they do. It looks at how the changes to the data will affect how well the models work and how well they are trained.
-
-The project also has a helper that's, like a copilot. This helper uses Artificial Intelligence to assist people when they are looking at the health of their datasets. It makes it easier for people to look at suggestions compare versions of the dataset and choose which changes to make to the data. Artificial Intelligence is used in this helper to make sure people get the assistance.
-
+Moreover, Artificial Intelligence assists in the explanation of this problem and provides recommendations. It is not just about spotting the issues within the data. Artificial Intelligence applies the information from this data set to explain the nature of these issues and provides evidence-based recommendations.
 
 Live demo link: https://dataforge-ai-ashen.vercel.app/
-
-
-Frontend: React, TypeScript, Tailwind CSS, Vite
-Backend: Python, FastAPI (supporting CSV, Excel, and Parquet data formats)
-
-
 
 ## Project Gallery & Screenshots
 
